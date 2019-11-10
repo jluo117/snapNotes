@@ -9,7 +9,8 @@
 import UIKit
 import Foundation
 import FirebaseDatabase
-class Edit_Parse: UIViewController,UITextFieldDelegate {
+class Edit_Parse: UIViewController,UITextViewDelegate {
+    
 
     @IBOutlet weak var parsedData: UITextView!
     var curText = ""
@@ -17,9 +18,11 @@ class Edit_Parse: UIViewController,UITextFieldDelegate {
     var myClass = ""
     let ref = Database.database().reference()
     var curImage : UIImage?
+    
     @IBOutlet weak var myImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        parsedData.delegate = self
         if curImage != nil{
             myImage.image = curImage
         }
@@ -36,7 +39,8 @@ class Edit_Parse: UIViewController,UITextFieldDelegate {
         // Do any additional setup after loading the view.
     }
     
-
+    
+    
     /*
     // MARK: - Navigation
 

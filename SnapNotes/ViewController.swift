@@ -10,6 +10,8 @@ import UIKit
 import FirebaseMLVision
 import FirebaseDatabase
 class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    @IBOutlet weak var hasPhoto: UILabel!
+    var isTaken = false
     var curClass = ""
     var ContentStr = ""
     var myTitle = ""
@@ -56,7 +58,13 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         // Pass the selected object to the new view controller.
     }
     func parseData(){
-        
+        if !self.isTaken{
+            let alertController = UIAlertController(title: "No Photo Taken", message:
+                "Click Take Photo before pressing Parse", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
         let myThread = DispatchGroup()
         myThread.enter()
         let vision = Vision.vision()
@@ -103,6 +111,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         myImage.image = image
         CurImg = image
         self.dismiss(animated: true, completion: nil)
+        self.isTaken = true
+        self.hasPhoto.isHidden = true
     }
     
     
